@@ -8,7 +8,8 @@ async function Page() {
     id: user?.id,
     objectId: userInfo?._id,
     username: userInfo?.username || user?.username,
-    name: userInfo?.bio || "",
+    name: userInfo?.name || user?.firstName || "",
+    bio: userInfo?.bio || "",
     image: userInfo?.image || user.imageUrl,
   };
   return (
