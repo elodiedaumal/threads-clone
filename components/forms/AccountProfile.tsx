@@ -83,14 +83,14 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         values.profile_photo = imgRes[0].fileUrl;
       }
     }
-    // they have to be in the same order than in user.action
+
     await updateUser(
-      user.id,
-      values.username,
-      values.bio,
-      values.profile_photo,
-      values.name,
-      pathname
+      userId:user.id,
+      username:values.username,
+      bio:values.bio,
+    image:values.profile_photo,
+      name:values.name,
+      path:pathname,
     );
   };
 
