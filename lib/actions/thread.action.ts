@@ -12,18 +12,26 @@ interface Params {
   path: string;
 }
 
-export async function updateUser({
+export async function createThread({
   text,
   author,
   communityId,
   path,
-}: Params): Promise<void> {
-  connectToDB();
+}: Params) {
+  try {
+    connectToDB();
 
-  const createdThead = await Thread.create({ text, author, community: null });
+    const createdThead = await Thread.create({
+      text,
+      author,
+      community: null,
+    });
 
-  await User.findByIdAndUpdate(author, {
-    $push: { threads: createdThead._id },
-  });
-  revalidatePath(path);
+    await User.findByIdAndUpdate(author, {
+      $push: { threads: createdThead._id },
+    });
+    revalidatePath(path);
+  } catch (error: any) {
+    throw new Error(`Failed to create thread:${error.message}`);
+  }
 }
