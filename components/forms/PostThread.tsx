@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter } from "next/navigation";
 
 //  import { updateUser } from "@/lib/actions/user.action";
-// import { UserValidation } from "@/lib/validations/user";
+import { ThreadValidation } from "@/lib/validations/thread";
 
 interface Props {
   user: {
@@ -42,7 +42,32 @@ function PostThread({ userId }: { userId: string }) {
       accountId: userId,
     },
   });
-  return <h1>Post Thread form</h1>;
+
+  const onSubmit = () => {};
+  return (
+    <Form {...form}>
+      <form
+        className="flex flex-col justify-start gap-10"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <FormField
+          control={form.control}
+          name="thread"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                Content
+              </FormLabel>
+              <FormControl className="no-focus border border-dar-4 bg-dark-3 text-light-1 ">
+                <Textarea rows={15} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
+  );
 }
 
 export default PostThread;
