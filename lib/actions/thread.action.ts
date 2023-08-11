@@ -35,3 +35,11 @@ export async function createThread({
     throw new Error(`Failed to create thread:${error.message}`);
   }
 }
+
+export async function fetchPosts(pageNumber = 1, pageSize = 20) {
+  connectToDB();
+
+  const postsQuery = Thread.find({ parenrId: { $in: [null, undefined] } }).sort(
+    { createdAt: "desc" }
+  );
+}
