@@ -24,11 +24,11 @@ interface Props {
   userId: string;
 }
 
-function PostThread({ userId }: Props) {
+function PostThread({ userId }: { userId: string }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const form = useForm<z.infer<typeof ThreadValidation>>({
+  const form = useForm({
     resolver: zodResolver(ThreadValidation),
     defaultValues: {
       thread: "",
