@@ -47,7 +47,7 @@ function PostThread({ userId }: { userId: string }) {
   return (
     <Form {...form}>
       <form
-        className="flex flex-col justify-start gap-10"
+        className="mt-10 flex flex-col justify-start gap-10"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
@@ -58,13 +58,16 @@ function PostThread({ userId }: { userId: string }) {
               <FormLabel className="text-base-semibold text-light-2">
                 Content
               </FormLabel>
-              <FormControl className="no-focus border border-dar-4 bg-dark-3 text-light-1 ">
+              <FormControl className="no-focus border border-dark-4 bg-dark-3 text-light-1 ">
                 <Textarea rows={15} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <Button type="submit" className="bg-primary-500">
+          Post Thread
+        </Button>
       </form>
     </Form>
   );
