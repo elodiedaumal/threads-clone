@@ -1,3 +1,6 @@
+import Image from "next/image";
+import Link from "next/link";
+
 interface Props {
   id: string;
   currentUserId: string;
@@ -30,7 +33,28 @@ const ThreadCard = ({
   createdAt,
   comments,
 }: Props) => {
-  return <div>ThreadCard</div>;
+  return (
+    <article
+      className="flex w-full flex-col rounded-xl bg-dark-2 p-7
+    "
+    >
+      <div className="flex items-start justify-between">
+        <div className="flex w-full flex-1 flex-row gap-4">
+          <div className="flex flex-col items-center">
+            <Link className="relative h-11 w-11" href={`/profile/${author.id}`}>
+              <Image
+                src={author.image}
+                alt="Profile Image"
+                fill
+                className="cursor-pointer rounded-full"
+              />
+            </Link>
+          </div>
+        </div>
+      </div>
+      <h2 className="text-small-regular text-light-2">{content}</h2>
+    </article>
+  );
 };
 
 export default ThreadCard;
