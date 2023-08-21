@@ -63,3 +63,41 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
 
   return { posts, isNext };
 }
+
+export async function fetchThreadById(id: string) {
+  connectToDB();
+
+  try {
+    const thread = await Thread.findById(id)
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id id name image",
+      }) // Populate the author field with _id and username
+
+      .populate({
+        path: "children", // Populate the children field
+        populate: [
+          {
+            path: "author", // Populate the author field within children
+            model: User,
+            select: "_id id name parentId image", // Select only _id and username fields of the author
+          },
+          {
+            path: "children", // Populate the children field within children
+            model: Thread, // The model of the nested children (assuming it's the same "Thread" model)
+            populate: {
+              path: "author", // Populate the author field within nested children
+              model: User,
+              select: "_id id name parentId image", // Select only _id and username fields of the author
+            },
+          },
+        ],
+      })
+      .exec();
+
+    return thread;
+  } catch (error: any) {
+    throw new Error(`Error fetching the thread: ${error.message}`);
+  }
+}
