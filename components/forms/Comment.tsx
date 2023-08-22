@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CommentValidation } from "@/lib/validations/thread";
+import Image from "next/image";
 
 interface Props {
   threadId: string;
@@ -45,19 +46,22 @@ const Comment = ({ threadId, currentUserImage, currentUserId }: Props) => {
   };
   return (
     <Form {...form}>
-      <form
-        className="mt-10 flex flex-col justify-start gap-10"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
+      <form className="comment-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="thread"
           render={({ field }) => (
-            <FormItem className="flex w-full flex-col gap-3">
-              <FormLabel className="text-base-semibold text-light-2">
-                Content
+            <FormItem className="flex w-full items-center gap-3">
+              <FormLabel>
+                <Image
+                  src={currentUserImage}
+                  alt="Profile image"
+                  width={48}
+                  height={48}
+                  className="rounded-full object-cover"
+                />
               </FormLabel>
-              <FormControl className="no-focus border border-dark-4 bg-dark-3 text-light-1 ">
+              <FormControl className="border-none bg-transparent">
                 <Input
                   type="text"
                   placeholder="Comment..."
@@ -65,12 +69,11 @@ const Comment = ({ threadId, currentUserImage, currentUserId }: Props) => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-primary-500">
-          Post Thread
+        <Button type="submit" className="comment-form_btn">
+          Reply
         </Button>
       </form>
     </Form>
