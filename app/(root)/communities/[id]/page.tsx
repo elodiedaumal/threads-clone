@@ -11,6 +11,7 @@ import Image from "next/image";
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
   if (!user) return null;
+
   const communityDetails = await fetchCommunityDetails(params.id);
 
   return (
